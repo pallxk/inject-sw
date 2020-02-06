@@ -35,7 +35,8 @@ inject-sw [--sw-config <config_file>] [ [-i|--input] <input_file> ] [
 Options:
   --help        Show help                                              [boolean]
   --version     Show version number                                    [boolean]
-  --sw-config   Config file for service worker generation
+  --sw-config   Config file for service worker generation. Defaults to
+                workbox-config.js, with fallback to sane defaults.
   -o, --output  path to output html file                [default: "/dev/stdout"]
   --minify      minify the service worker code snippet[boolean] [default: false]
   -i, --input                                            [default: "/dev/stdin"]
