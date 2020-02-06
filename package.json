@@ -1,0 +1,22 @@
+{
+  "name": "inject-sw",
+  "version": "1.0.0",
+  "description": "CLI & helper function to generate service worker files to precache assets and inject service worker code snippet into an html file",
+  "main": "index.js",
+  "bin": "cli.js",
+  "keywords": [
+    "sw",
+    "service worker",
+    "workbox",
+    "workboxjs"
+  ],
+  "repository": "pallxk/inject-sw",
+  "author": "pallxk <github@pallxk.com>",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "debug": "^4.1.1",
+    "workbox-build": "^5.0.0",
+    "yargs": "^15.1.0"
+  }
+}
