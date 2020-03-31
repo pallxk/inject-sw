@@ -6,10 +6,10 @@ const { injectSWHtml, generateSW } = require('.')
 
 const log = require('debug')('inject-sw')
 
-function injectSWFile(input, output, minify, swConfig) {
+function injectSWFile(input, output, minify, swConfig, swUrl) {
   const html = fs.readFileSync(input, 'utf8')
   const outStream = fs.createWriteStream(output)
-  outStream.write(injectSWHtml(html, minify))
+  outStream.write(injectSWHtml(html, minify, swUrl))
 
   generateSW(swConfig).then(result => {
     log('generateSW result: %O', result)
@@ -28,8 +28,10 @@ if (require.main !== module) {
 
 const argv = require('yargs')
   .scriptName('inject-sw')
-  .usage('$0 [--sw-config <config_file>] [ [-i|--input] <input_file> ] [ [-o|--output] <output_file> ] [--minify]')
+  .usage('$0 [--sw-config <config_file>] [--sw-url <url>] [ [-i|--input] <input_file> ] [ [-o|--output] <output_file> ] [--minify]')
   .describe('sw-config', 'Config file for service worker generation. Defaults to workbox-config.js, with fallback to sane defaults.')
+  .describe('sw-url', 'URL for generated sw.js')
+  .default('sw-url', 'sw.js')
   .alias('i', 'input')
   .default('i', '/dev/stdin')
   .describe('o', 'path to output html file')
@@ -101,4 +103,4 @@ else {
   }
 }
 
-injectSWFile(argv.i, argv.o, argv.minify, swConfig)
+injectSWFile(argv.i, argv.o, argv.minify, swConfig, argv.swUrl)

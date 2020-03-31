@@ -29,14 +29,15 @@ npm i -g inject-sw
 ### Usage
 
 ```
-inject-sw [--sw-config <config_file>] [ [-i|--input] <input_file> ] [
-[-o|--output] <output_file> ] [--minify]
+inject-sw [--sw-config <config_file>] [--sw-url <url>] [ [-i|--input]
+<input_file> ] [ [-o|--output] <output_file> ] [--minify]
 
 Options:
   --help        Show help                                              [boolean]
   --version     Show version number                                    [boolean]
   --sw-config   Config file for service worker generation. Defaults to
                 workbox-config.js, with fallback to sane defaults.
+  --sw-url      URL for generated sw.js                       [default: "sw.js"]
   -o, --output  path to output html file                [default: "/dev/stdout"]
   --minify      minify the service worker code snippet[boolean] [default: false]
   -i, --input                                            [default: "/dev/stdin"]
@@ -79,6 +80,9 @@ inject-sw -i index.html -o index.html
 # (Note that it does not minify other parts of the html page)
 # Input and output can be specified as positional arguments
 inject-sw --minify a.html b.html
+
+# Specify the config and the URL for service worker
+inject-sw --sw-config workbox-config.js --sw-url /sw.js -i index.html -o index.html
 ```
 
 
@@ -97,7 +101,7 @@ API:
 ```js
 const { injectSWHtml, generateSW } = require('inject-sw');
 
-injectSWHtml(html, minify = false);
+injectSWHtml(html, minify = false, swUrl = 'sw.js');
 
 /* See https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-build#.generateSW */
 const config = {};
@@ -111,7 +115,7 @@ Code Example:
 ```js
 const { injectSWHtml, generateSW } = require('inject-sw');
 const html = '<!doctype html><html><head><title>Hello World</title></head><body>Morning World</body></html>';
-const injectedHTML = injectSWHtml(html, true);
+const injectedHTML = injectSWHtml(html, true, '/sw.js');
 console.log(injectedHTML);
 
 generateSW({
@@ -130,7 +134,7 @@ API:
 
 ```js
 const injectSWFile = require('inject-sw/cli');
-injectSWFile(input, output, minify, swConfig);
+injectSWFile(input, output, minify, swConfig, swUrl = 'sw.js');
 ```
 
 Code Example:
@@ -149,7 +153,8 @@ const swConfig = {
   ],
   "swDest": "dist/sw.js"
 };
-injectSWFile(inputFilename, outputFilename, minify, swConfig);
+const swUrl = '/sw.js';
+injectSWFile(inputFilename, outputFilename, minify, swConfig, swUrl);
 ```
 
 
