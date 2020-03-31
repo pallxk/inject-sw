@@ -16,7 +16,7 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
     "debug": "^4.1.1",
-    "workbox-build": "^5.0.0",
-    "yargs": "^15.3.0"
+    "workbox-build": "^5.1.2",
+    "yargs": "^15.3.1"
   }
 }
